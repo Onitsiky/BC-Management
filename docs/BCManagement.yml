@@ -354,34 +354,61 @@ components:
           example: BadRequestException
         message:
           type: string
-          example: Bad request 
+          example: Bad request
+    item:
+      description: Things the client could buy
+      type: object
+      properties:
+        id:
+          type: number
+          example: 1
+        name:
+          type: string
+          example: "Audi R8"
+        unitPrice:
+          type: number
+          example: 2.000
+        quantity:
+            type: number
+            example: 3
     newBill:
       type: object
       properties:
-        clientName:
+        owner:
           type: string
           example: Carl Johnson
-        Due:
-          type: number
-          example: 100,000
+        OrderItems:
+          type: array
+          items:
+            type: object
+            properties:
+              idItem:
+                type: number
+                example: 1
         date:
           type: string
           format: date
-    bill: 
-      allOf:
-        - $ref: '#/components/schemas/newBill'
+    bill:
       description: Bill
       type: object
       properties:
         id: 
           type: number
           example: 01
-        montant_Paid:
+        owner:
+          type: string
+          example: 'Martin'
+        orderItems:
+          type: array
+          items:
+            allOf:
+              - $ref: '#/components/schemas/item'
+        Total:
           type: number
           example: 50,000
-        Status_Paid:
-          type: string
-          example: 'false'
+        Status:
+          type: boolean
+          example: false
     paidBill:
       allOf:
         - $ref: '#/components/schemas/newBill'
@@ -390,11 +417,11 @@ components:
       properties:
         id: 
           type: number
-          example: 01
-        montant_Paid:
+          example: 1
+        montantPaid:
           type: number
           example: 100,000
-        Status_Paid:
+        Status:
           type: string
           example: 'true'
     newExpenditure: 

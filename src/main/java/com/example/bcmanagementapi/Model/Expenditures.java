@@ -3,7 +3,7 @@ package com.example.bcmanagementapi.Model;
 import lombok.*;
 
 import javax.persistence.*;
-import java.util.List;
+import java.util.Date;
 
 @Entity
 @Getter
@@ -11,15 +11,18 @@ import java.util.List;
 @EqualsAndHashCode
 @AllArgsConstructor
 @NoArgsConstructor
-public class Bill {
+public class Expenditures {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne
-    private Client owner;
+    @Column(nullable = false)
+    private Date date;
 
+    @Column(nullable = false)
+    private Float due;
+
+    @ManyToOne
     @JoinColumn
-    @OneToMany
-    private List<OrderItem> orders;
+    private ExpenditureCategory category;
 }

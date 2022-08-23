@@ -3,23 +3,22 @@ package com.example.bcmanagementapi.Model;
 import lombok.*;
 
 import javax.persistence.*;
-import java.util.List;
 
 @Entity
+@NoArgsConstructor
+@AllArgsConstructor
 @Getter
 @Setter
 @EqualsAndHashCode
-@AllArgsConstructor
-@NoArgsConstructor
-public class Bill {
+public class OrderItem {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne
-    private Client owner;
-
+    @OneToOne
     @JoinColumn
-    @OneToMany
-    private List<OrderItem> orders;
+    private Item item;
+
+    @Column(nullable = false)
+    private Integer quantity;
 }

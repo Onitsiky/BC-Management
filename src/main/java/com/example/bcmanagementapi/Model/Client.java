@@ -1,6 +1,5 @@
 package com.example.bcmanagementapi.Model;
 
-
 import lombok.*;
 
 import javax.persistence.*;
@@ -19,6 +18,10 @@ public class Client {
     @Column(nullable = false, unique = true)
     private String name;
 
-    @Column(nullable = false, unique = true)
     private String contact;
+
+    public Client(Long id, String name) {
+        this.id = id;
+        this.name = name;
+    }
 }

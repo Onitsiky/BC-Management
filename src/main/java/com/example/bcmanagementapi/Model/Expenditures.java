@@ -3,6 +3,7 @@ package com.example.bcmanagementapi.Model;
 import lombok.*;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Date;
 
 @Entity
@@ -11,7 +12,7 @@ import java.util.Date;
 @EqualsAndHashCode
 @AllArgsConstructor
 @NoArgsConstructor
-public class Expenditures {
+public class Expenditures implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -23,6 +24,6 @@ public class Expenditures {
     private Float due;
 
     @ManyToOne
-    @JoinColumn
+    @JoinColumn(name = "category_id", nullable = false)
     private ExpenditureCategory category;
 }

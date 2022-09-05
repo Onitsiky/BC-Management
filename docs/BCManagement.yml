@@ -9,7 +9,7 @@ tags:
   - name: Health
   - name: Bills
   - name: Expenditure
-  - name: Bank
+  - name: Balance
 paths:
   /ping:
     get:
@@ -38,6 +38,7 @@ paths:
       operationId: getPaymentPerDay
       parameters:
         - name: day
+          description: Date on which the bill was made, by default it'll be the current date
           in: query
           schema:
             type: string
@@ -230,10 +231,12 @@ paths:
       description: Get list of expenditures did on a specific day
       parameters:
         - name: day
+          description: Date on which the expenditure was made, by default it'll be the current date
           in: query
           schema: 
             type: string
             format: date
+            example: "2022-09-09"
           required: true
       responses:
         200:
@@ -297,42 +300,24 @@ paths:
             application/json:
               schema: 
                 $ref: '#/components/schemas/badrequest'
-  /bank:
+  /balance:
     get:
       tags:
-        - Bank
-      summary: Get informations about the actual company's fund
-      description: Get informations about the actual company's fund
-      responses:
-        200:
-          description: company's fund 
-          content:
-            application/json:
-              schema: 
-                $ref: '#/components/schemas/bank'
-        400:
-          description: Bad request
-          content:
-            application/json:
-              schema: 
-                $ref: '#/components/schemas/badrequest'
-  /bank/day:
-    get: 
-      tags:
-        - Bank
-      summary: Get informations about the company's fund on a day
-      description: Get informations about the company's fund on a specific day
+        - Balance
+      summary: Get informations about the company's fund
+      description: Get informations about the company's fund
       parameters:
         - name: day
+          description: Date on which the expenditure was made, by default it'll be the current date
           in: query
-          schema: 
+          schema:
             type: string
             format: date
             example: "2022-01-01"
           required: true
       responses:
         200:
-          description: The company's fund on the specified day
+          description: The company's fund
           content:
             application/json:
               schema: 
@@ -354,34 +339,61 @@ components:
           example: BadRequestException
         message:
           type: string
-          example: Bad request 
+          example: Bad request
+    item:
+      description: Things the client could buy
+      type: object
+      properties:
+        id:
+          type: number
+          example: 1
+        name:
+          type: string
+          example: "Audi R8"
+        unitPrice:
+          type: number
+          example: 2.000
+        quantity:
+            type: number
+            example: 3
     newBill:
       type: object
       properties:
-        clientName:
+        owner:
           type: string
           example: Carl Johnson
-        Due:
-          type: number
-          example: 100,000
+        OrderItems:
+          type: array
+          items:
+            type: object
+            properties:
+              idItem:
+                type: number
+                example: 1
         date:
           type: string
           format: date
-    bill: 
-      allOf:
-        - $ref: '#/components/schemas/newBill'
+    bill:
       description: Bill
       type: object
       properties:
         id: 
           type: number
           example: 01
-        montant_Paid:
+        owner:
+          type: string
+          example: 'Martin'
+        orderItems:
+          type: array
+          items:
+            allOf:
+              - $ref: '#/components/schemas/item'
+        Total:
           type: number
           example: 50,000
-        Status_Paid:
-          type: string
-          example: 'false'
+        Status:
+          type: boolean
+          example: false
     paidBill:
       allOf:
         - $ref: '#/components/schemas/newBill'
@@ -390,13 +402,19 @@ components:
       properties:
         id: 
           type: number
-          example: 01
-        montant_Paid:
+          example: 1
+        montantPaid:
           type: number
           example: 100,000
-        Status_Paid:
+        Status:
           type: string
           example: 'true'
+    category:
+        type: object
+        properties:
+          categoryName:
+            type: string
+            example: "Jirama"
     newExpenditure: 
       type: object
       properties:
@@ -428,10 +446,9 @@ components:
         montant:
           type: number
           example: 30,000
-        category:
-          type: string
-          example: Jirama
-    bank:
+      allOf:
+        - $ref: '#/components/schemas/category'
+    balance:
       type: object
       properties:
         id:

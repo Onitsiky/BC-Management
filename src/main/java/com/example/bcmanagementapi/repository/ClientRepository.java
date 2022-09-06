@@ -1,6 +1,6 @@
-package com.example.bcmanagementapi.Repository;
+package com.example.bcmanagementapi.repository;
 
-import com.example.bcmanagementapi.Model.Client;
+import com.example.bcmanagementapi.model.Client;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

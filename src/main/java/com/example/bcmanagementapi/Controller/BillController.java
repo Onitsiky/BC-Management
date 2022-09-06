@@ -1,6 +1,6 @@
-package com.example.bcmanagementapi.endpoint.rest;
+package com.example.bcmanagementapi.Controller;
 
-import com.example.bcmanagementapi.endpoint.mapper.BillCreate;
+import com.example.bcmanagementapi.model.mapper.BillCreate;
 import com.example.bcmanagementapi.model.Bill;
 import com.example.bcmanagementapi.service.BillService;
 import lombok.AllArgsConstructor;
@@ -11,7 +11,7 @@ import java.util.List;
 
 @RestController
 @AllArgsConstructor
-@CrossOrigin
+@CrossOrigin("*")
 public class BillController {
 
     @Autowired
@@ -31,9 +31,10 @@ public class BillController {
     }
 
     @PostMapping("/bills")
-    public Bill createBills(
+    public String createBills(
             @RequestBody BillCreate bill
     ){
-        return billService.createBill(bill);
+        billService.createBill(bill);
+        return "Bill succefully created !";
     }
 }

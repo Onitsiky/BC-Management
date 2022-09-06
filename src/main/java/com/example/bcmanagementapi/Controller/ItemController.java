@@ -1,28 +1,43 @@
-package com.example.bcmanagementapi.endpoint.rest;
+package com.example.bcmanagementapi.Controller;
 
 import com.example.bcmanagementapi.model.Item;
 import com.example.bcmanagementapi.repository.ItemRepository;
+import com.example.bcmanagementapi.service.ItemService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@RequestMapping("/item")
+@CrossOrigin("*")
+@RequestMapping("/items")
 @RestController
 public class ItemController {
 
     @Autowired
-    private ItemRepository itemRepository;
+    public ItemRepository itemRepository;
+
+    @Autowired
+    public ItemService itemService;
     @GetMapping
-    private List<Item> getItems(){
-        return itemRepository.findAll();
+    private List<Item> getItems(
+            @RequestParam int page,
+            @RequestParam int page_size
+    ){
+        return itemService.getItems(page, page_size).stream().toList();
     }
 
     @PostMapping
-    private String addItems(
+    public String addItems(
             @RequestBody List<Item> items
     ){
         itemRepository.saveAll(items);
-        return "Successfully added!";
+        return "Items successfully added!";
+    }
+
+    @PutMapping
+    public String updateItem(
+            @RequestBody Item item
+    ){
+        return itemService.modifyItem(item);
     }
 }

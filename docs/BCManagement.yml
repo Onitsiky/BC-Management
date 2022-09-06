@@ -11,6 +11,7 @@ tags:
   - name: Expenditure
   - name: Balance
   - name: Item
+  - name: Category 
 paths:
   /ping:
     get:
@@ -397,6 +398,81 @@ paths:
             application/json:
               schema: 
                 $ref: '#/components/schemas/badrequest'
+  /category: 
+    get: 
+      tags:
+        - Category
+      summary: Category of an expenditure
+      description: How to get the categories of expenditure
+      responses:
+        200:
+          description: List of expenditure categories
+          content:
+            application/json:
+              schema: 
+                type: array
+                items: 
+                  $ref: '#/components/schemas/category'
+        400:
+          description: Bad request
+          content:
+            application/json:
+              schema: 
+                $ref: '#/components/schemas/badrequest'
+    post: 
+      tags:
+        - Category
+      summary: Add new categories
+      description: How to add new categories
+      requestBody: 
+        content:
+          application/json:
+            schema: 
+              type: array
+              items: 
+                type: object
+                properties:
+                  categoryName: 
+                    type: string
+                    example: "Jirama"
+        required: true
+      responses:
+        200:
+          description: Categories added 
+          content:
+            text/plain:
+              example: Categories added 
+        400:
+          description: Bad request
+          content:
+            application/json:
+              schema: 
+                $ref: '#/components/schemas/badrequest'
+    put: 
+      tags:
+        - Category
+      summary: Update a category
+      description: How to change a category name
+      requestBody: 
+        content:
+          application/json:
+            schema: 
+              type: array
+              items:
+                $ref: '#/components/schemas/category'
+        required: true
+      responses:
+        200:
+          description: Category updated
+          content:
+            text/plain:
+              example: Category updated
+        400:
+          description: Bad request
+          content:
+            application/json:
+              schema: 
+                $ref: '#/components/schemas/badrequest'
 components:
   schemas:
     badrequest:
@@ -487,6 +563,9 @@ components:
     category:
         type: object
         properties:
+          id: 
+            type: integer
+            example: 1
           categoryName:
             type: string
             example: "Jirama"

@@ -27,6 +27,7 @@ public class BillMapped {
         for(ItemAndQuantity s : billCreate.getItems()){
             Item temp = itemRepository.findByName(s.getItem());
             if(temp.getQuantity() >= s.getQuantity()){
+                temp.setQuantity(s.getQuantity());
                 itemList.add(temp);
             }
         }

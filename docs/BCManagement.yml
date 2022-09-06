@@ -10,6 +10,7 @@ tags:
   - name: Bills
   - name: Expenditure
   - name: Balance
+  - name: Item
 paths:
   /ping:
     get:
@@ -321,7 +322,75 @@ paths:
           content:
             application/json:
               schema: 
-                $ref: '#/components/schemas/bank'
+                $ref: '#/components/schemas/balance'
+        400:
+          description: Bad request
+          content:
+            application/json:
+              schema: 
+                $ref: '#/components/schemas/badrequest'
+  /items:
+    get: 
+      tags:
+        - Item
+      summary: List of items for sale
+      description: Get the list of the items for sale
+      responses:
+        200:
+          description: List of items
+          content:
+            application/json:
+              schema: 
+                type: array
+                items: 
+                  $ref: '#/components/schemas/item'
+        400:
+          description: Bad request
+          content:
+            application/json:
+              schema: 
+                $ref: '#/components/schemas/badrequest'
+    post:   
+      tags:
+        - Item
+      summary: Add a new item 
+      description: Add new item for sale
+      requestBody:
+        content:
+          application/json:
+            schema: 
+              type: array
+              items:
+                $ref: '#/components/schemas/newItem'
+        required: true
+      responses:
+        200: 
+          description: Items successfully added
+          content:
+            text/plain:
+              example: Items successfully added
+        400:
+          description: Bad request
+          content:
+            application/json:
+              schema: 
+                $ref: '#/components/schemas/badrequest'
+    put: 
+      tags:
+        - Item
+      summary: Modify an Item
+      description: How to modify an item
+      requestBody: 
+        content:
+          application/json:
+            schema: 
+              $ref: '#/components/schemas/item'
+      responses:
+        200: 
+          description: Item successfully updated
+          content:
+            text/plain:
+              example: Item successfully updated
         400:
           description: Bad request
           content:
@@ -340,13 +409,10 @@ components:
         message:
           type: string
           example: Bad request
-    item:
-      description: Things the client could buy
+    newItem:
+      description: How to add new articles for sale
       type: object
       properties:
-        id:
-          type: number
-          example: 1
         name:
           type: string
           example: "Audi R8"
@@ -356,6 +422,15 @@ components:
         quantity:
             type: number
             example: 3
+    item:
+      description: Things the client could buy
+      allOf:
+        - $ref: '#/components/schemas/newItem'
+      type: object
+      properties:
+        id:
+          type: number
+          example: 1
     newBill:
       type: object
       properties:

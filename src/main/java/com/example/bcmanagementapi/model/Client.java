@@ -1,4 +1,4 @@
-package com.example.bcmanagementapi.Model;
+package com.example.bcmanagementapi.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -25,6 +25,4 @@ public class Client implements Serializable {
     @Column(nullable = false)
     private String contact;
 
-    @OneToMany(mappedBy = "client")
-    private List<Bill> bills;
 }

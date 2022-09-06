@@ -1,4 +1,4 @@
-package com.example.bcmanagementapi.endpoint.mapper;
+package com.example.bcmanagementapi.model.mapper;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -14,5 +14,6 @@ import java.util.List;
 @EqualsAndHashCode
 public class BillCreate {
     private String owner;
-    private List<String> items;
+    private String contact;
+    private List<ItemAndQuantity> items;
 }

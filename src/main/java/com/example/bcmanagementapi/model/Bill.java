@@ -1,13 +1,15 @@
-package com.example.bcmanagementapi.Model;
+package com.example.bcmanagementapi.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
 import java.io.Serializable;
 import java.time.Instant;
+import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -21,11 +23,12 @@ public class Bill implements Serializable {
     private Long id;
 
     @Column(nullable = false)
-    private Instant date;
+    @CreationTimestamp
+    private Instant date ;
 
     @ManyToMany
     @JoinTable(
-            name = "Bill_Item",
+            name = "billItem",
             joinColumns = @JoinColumn(name = "bill_id"),
             inverseJoinColumns = @JoinColumn(name = "item_id")
     )

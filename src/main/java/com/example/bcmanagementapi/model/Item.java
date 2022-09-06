@@ -1,4 +1,4 @@
-package com.example.bcmanagementapi.Model;
+package com.example.bcmanagementapi.model;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -21,6 +21,7 @@ public class Item implements Serializable {
     @Column(nullable = false)
     private double unitPrice;
 
-    @ManyToMany(mappedBy = "items")
-    private List<Bill> bills;
+    @Column(nullable = false, columnDefinition = "Integer default 1")
+    private Integer quantity;
+
 }

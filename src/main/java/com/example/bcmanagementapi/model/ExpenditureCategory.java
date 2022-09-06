@@ -1,4 +1,4 @@
-package com.example.bcmanagementapi.Model;
+package com.example.bcmanagementapi.model;
 
 import lombok.*;
 

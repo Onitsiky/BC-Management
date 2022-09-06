@@ -38,6 +38,7 @@ public class ItemController {
     public String updateItem(
             @RequestBody Item item
     ){
-        return itemService.modifyItem(item);
+        itemRepository.save(item);
+        return "Item successfully updated ";
     }
 }

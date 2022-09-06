@@ -22,16 +22,4 @@ public class ItemService {
         Pageable pageable = PageRequest.of(page, page_size);
         return itemRepository.findAll(pageable).toList();
     }
-
-    public String modifyItem(Item item){
-        Optional<Item> exist = itemRepository.findById(item.getId());
-        if(exist.isPresent()){
-            itemRepository.updateItem(item.getName(), item.getQuantity(), item.getUnitPrice(), item.getId());
-            return "Item successfully updated!";
-        }
-        else {
-            itemRepository.save(item);
-            return "Item successfully updated!";
-        }
-    }
 }

@@ -1,0 +1,477 @@
+openapi: 3.0.3
+info:
+  title: Business Cash Management
+  description: Business Cash Management
+  version: 1.0.0
+servers:
+  - url: 'http://localhost:8080'
+paths:
+  /ping:
+    get:
+      tags:
+        - Security
+      summary: Check server's health
+      responses:
+        '200':
+            description: Pong
+            content:
+              text/plain:
+                  example: Pong
+        '400':
+            description: Bad request
+            content:
+              application/json:
+                schema:
+                  $ref: '#/components/schemas/BadRequest'
+  /bills/{id}: 
+    get: 
+      tags:
+        - Bills
+      summary: Get identified bill
+      parameters:
+        - name: id 
+          in: path 
+          required: true
+          schema:
+            type: number
+      operationId: getBillById
+      responses:
+        '200': 
+          description: The identified bill
+          content:
+            application/json:
+              schema: 
+                $ref: '#/components/schemas/Bill'
+        '400':
+            description: Bad request
+            content:
+              application/json:
+                schema:
+                  $ref: '#/components/schemas/BadRequest'
+  /bills/paid: 
+    get: 
+      tags:
+        - Bills
+      summary: Get list of paid bills
+      operationId: getPaidBill
+      responses:
+        '200': 
+          description: List of paid bills
+          content:
+            application/json:
+              schema: 
+                type: array
+                items: 
+                  $ref: '#/components/schemas/Bill'
+        '400':
+            description: Bad request
+            content:
+              application/json:
+                schema:
+                  $ref: '#/components/schemas/BadRequest'
+  /bills/updaid: 
+    get: 
+      tags:
+        - Bills
+      summary: Get list of unpaid bills
+      operationId: getUnpaidBill
+      responses:
+        '200': 
+          description: List of unpaid bills
+          content:
+            application/json:
+              schema: 
+                type: array
+                items: 
+                  $ref: '#/components/schemas/Bill'
+        '400':
+            description: Bad request
+            content:
+              application/json:
+                schema:
+                  $ref: '#/components/schemas/BadRequest'  
+  /bills: 
+    get: 
+      tags:
+        - Bills
+      summary: Get bill's list
+      operationId: getBills
+      responses:
+        '200': 
+          description: List of bills
+          content:
+            application/json:
+              schema: 
+                type: array
+                items:
+                  $ref: '#/components/schemas/Bill'
+        '400':
+            description: Bad request
+            content:
+              application/json:
+                schema:
+                  $ref: '#/components/schemas/BadRequest'
+    put: 
+      tags:
+        - Bills
+      summary: Update/Create bill
+      description: Update bill if id provided, create them otherwise
+      requestBody: 
+        content:
+          application/json:
+            schema: 
+              type: array
+              items: 
+                $ref: '#/components/schemas/Bill'
+        required: true
+      operationId: createOrUpdateBill
+      responses:
+        '200': 
+          description: The updated or created bills
+          content:
+            application/json:
+              schema: 
+                type: array
+                items: 
+                  $ref: '#/components/schemas/Bill'
+        '400':
+            description: Bad request
+            content:
+              application/json:
+                schema:
+                  $ref: '#/components/schemas/BadRequest'
+  /expenditures/{id}: 
+    get: 
+      tags:
+        - Expenditures
+      summary: Get identified expenditure
+      parameters:
+        - name: id
+          in: path 
+          required: true
+          schema:
+            type: number
+      operationId: getExpenditureById 
+      responses:
+        '200': 
+          description: The identified expenditure
+          content:
+            application/json:
+              schema: 
+                $ref: '#/components/schemas/Expenditure'
+        '400':
+            description: Bad request
+            content:
+              application/json:
+                schema:
+                  $ref: '#/components/schemas/BadRequest'
+  /expenditures: 
+    get: 
+      tags:
+        - Expenditures
+      summary: Get list of expenditures
+      operationId: getExpenditures
+      responses:
+        '200':
+          description: List of expenditures
+          content:
+            application/json:
+              schema: 
+                type: array
+                items: 
+                  $ref: '#/components/schemas/Expenditure'
+        '400':
+            description: Bad request
+            content:
+              application/json:
+                schema:
+                  $ref: '#/components/schemas/BadRequest'
+    put: 
+      tags:
+        - Expenditures
+      summary: Update/Create expenditure
+      description: Update bill if id provided, create them otherwise
+      requestBody: 
+        content:
+          application/json:
+            schema: 
+              type: array
+              items: 
+                $ref: '#/components/schemas/Expenditure'
+        required: true
+      operationId: createOrUpdateExpenditure
+      responses:
+        '200': 
+          description: Updated or created expenditures
+          content:
+            application/json:
+              schema: 
+                type: array
+                items: 
+                  $ref: '#/components/schemas/Expenditure'
+        '400':
+            description: Bad request
+            content:
+              application/json:
+                schema:
+                  $ref: '#/components/schemas/BadRequest'
+  /balance: 
+    get: 
+      tags:
+        - Balance
+      summary: Get balance of company's fund
+      parameters:
+        - name: day
+          description: Date on which the expenditure was made, by default it'll be the current date
+          in: query
+          schema:
+            type: string
+            format: date
+            example: "2022-01-01"
+      operationId: getBalance
+      responses:
+        '200': 
+          description: informations about the company's fund
+          content:
+            application/json:
+              schema: 
+                $ref: '#/components/schemas/Balance'
+  /items/{id}: 
+    get: 
+      tags:
+        - Utils
+      summary: Get identified item
+      parameters:
+        - name: id
+          in: path 
+          required: true
+          schema:
+            type: number
+      operationId: getItemById
+      responses:
+        '200':  
+          description: The identified item
+          content:
+            application/json:
+              schema: 
+                $ref: '#/components/schemas/CreateItem'
+        '400':
+            description: Bad request
+            content:
+              application/json:
+                schema:
+                  $ref: '#/components/schemas/BadRequest'
+  /items: 
+    get: 
+      tags:
+        - Utils
+      summary: Get list of items
+      operationId: getItems
+      responses:
+        '200':  
+          description: List of items
+          content:
+            application/json:
+              schema: 
+                type: array
+                items:
+                  $ref: '#/components/schemas/CreateItem'
+        '400':
+            description: Bad request
+            content:
+              application/json:
+                schema:
+                  $ref: '#/components/schemas/BadRequest' 
+    put: 
+      tags:
+        - Utils
+      summary: Update/Create item
+      description: Update items if id provided, create them otherwise
+      requestBody: 
+        content:
+          application/json:
+            schema: 
+              type: array
+              items: 
+                $ref: '#/components/schemas/CreateItem'
+        required: true
+      operationId: createOrUpdateItem
+      responses:
+        '200': 
+          description: Updated or created items
+          content:
+            application/json:
+              schema: 
+                type: array
+                items: 
+                  $ref: '#/components/schemas/CreateItem'
+        '400':
+            description: Bad request
+            content:
+              application/json:
+                schema:
+                  $ref: '#/components/schemas/BadRequest'
+  /categories/{id}: 
+    get:
+      tags:
+        - Utils
+      summary: Get identified Category
+      parameters:
+        - name: id
+          in: path 
+          required: true
+          schema:
+            type: number
+      operationId: getCategoryById
+      responses:
+        '200': 
+          description: The identified category
+          content:
+            application/json:
+              schema: 
+                $ref: '#/components/schemas/Category'
+        '400':
+            description: Bad request
+            content:
+              application/json:
+                schema:
+                  $ref: '#/components/schemas/BadRequest'
+  /categories: 
+    get:
+      tags:
+        - Utils
+      summary: Get list of Category
+      operationId: getCategory
+      responses:
+        '200': 
+          description: Lsit of category
+          content:
+            application/json:
+              schema:
+                type: array
+                items: 
+                 $ref: '#/components/schemas/Category'
+        '400':
+            description: Bad request
+            content:
+              application/json:
+                schema:
+                  $ref: '#/components/schemas/BadRequest'
+    put: 
+      tags:
+        - Utils
+      summary: Update/Create category
+      description: Update category if id provided, create them otherwise
+      requestBody: 
+        content:
+          application/json:
+            schema: 
+              type: array
+              items: 
+                $ref: '#/components/schemas/Category'
+        required: true
+      operationId: createOrUpdateItem
+      responses:
+        '200': 
+          description: Updated or created categories
+          content:
+            application/json:
+              schema: 
+                type: array
+                items: 
+                  $ref: '#/components/schemas/Category'
+        '400':
+            description: Bad request
+            content:
+              application/json:
+                schema:
+                  $ref: '#/components/schemas/BadRequest'
+components:
+  schemas:
+    BadRequest:
+      description: Bad request exception
+      type: object
+      properties:
+        type: 
+          type: string
+          example: BadRequestException
+        message:
+          type: string
+          example: Bad request
+    Bill: 
+      type: object
+      properties:
+        id:
+          type: number
+        owner: 
+          type: string
+        orderItems:
+          type: array
+          items: 
+            $ref: '#/components/schemas/Item'
+        total: 
+          type: string 
+          example: '40000 Mga'
+        Status:
+          type: string
+          example: paid
+    CreateItem: 
+      type: object
+      properties:
+        id: 
+          type: number
+        name: 
+          type: string
+        unitPrice:
+          type: number
+          example: 30000
+    Item: 
+      type: object
+      properties:
+        id: 
+          type: number
+        name: 
+          type: string
+        unitPrice:
+          type: number
+          example: 30000
+        quantity:
+          type: number
+    Category:
+      type: object
+      properties:
+        id: 
+          type: number
+        categoryName:
+          type: string
+    Expenditure:
+      type: object
+      properties:
+        id:
+          type: number
+          example: 2
+        description:
+          type: string
+          example: "3 Dell Laptops"
+        date: 
+          type: string 
+          format: date
+          example: "2022-09-12"
+        category: 
+          $ref: '#/components/schemas/Category'
+        montant:
+          type: number
+          example: '30000 Mga'
+    Balance:
+      type: object
+      properties:
+        id:
+          type: number
+          example: 4
+        date:
+          type: string
+          format: date
+          example: "2022-01-01"
+        montant: 
+          type: number
+          example: 2,000,000

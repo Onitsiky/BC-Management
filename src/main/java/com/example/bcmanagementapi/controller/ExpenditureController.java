@@ -30,7 +30,7 @@ public class ExpenditureController {
     return expenditureService.getAll(page, page_size);
   }
 
-  @PutMapping("/expenditure")
+  @PutMapping("/expenditures")
   public List<Expenditure> createOrUpdateExpenditure(
       @RequestBody List<Expenditure> expenditures
   ){

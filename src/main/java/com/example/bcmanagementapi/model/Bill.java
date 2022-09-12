@@ -18,6 +18,7 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
+import java.time.LocalDate;
 import java.util.List;
 
 @Entity
@@ -36,6 +37,9 @@ public class Bill {
   @ManyToOne
   @JoinColumn(name = "client_id", nullable = false)
   private Client owner;
+
+  @Column(nullable = false, columnDefinition = "DATE DEFAULT CURRENT_DATE")
+  private LocalDate date;
 
   @ManyToMany
   @JoinTable(

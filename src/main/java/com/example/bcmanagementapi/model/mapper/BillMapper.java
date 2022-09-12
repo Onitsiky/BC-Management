@@ -9,13 +9,13 @@ import com.example.bcmanagementapi.service.ItemService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
 @AllArgsConstructor
 @Component
 public class BillMapper {
-  private final BillService billService;
   private final ClientService clientService;
 
   private final ItemService itemService;
@@ -51,6 +51,7 @@ public class BillMapper {
     }
     bill.setItems(items);
     bill.setPaid(false);
+    bill.setDate(LocalDate.now());
     return bill;
   }
 }

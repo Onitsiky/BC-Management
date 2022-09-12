@@ -18,6 +18,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import java.io.Serializable;
 import java.time.Instant;
+import java.time.LocalDate;
 
 @Entity
 @Table(name = "\"expenditure\"")
@@ -36,11 +37,11 @@ public class Expenditure implements Serializable {
   private String description;
 
   @Column(nullable = false, columnDefinition = "DATE DEFAULT CURRENT_DATE")
-  private Instant date;
+  private LocalDate date;
 
   @ManyToOne
   @JoinColumn(name = "category_id", nullable = false)
   private Category category;
 
-  private double montant;
+  private Double montant;
 }

@@ -143,7 +143,7 @@ paths:
   /expenditures/{id}:
     get:
       tags:
-        - Expenditures
+        - Expenditure
       summary: Get identified expenditure
       parameters:
         - name: id
@@ -168,7 +168,7 @@ paths:
   /expenditures:
     get:
       tags:
-        - Expenditures
+        - Expenditure
       summary: Get list of expenditures
       operationId: getExpenditures
       responses:
@@ -188,7 +188,7 @@ paths:
                 $ref: '#/components/schemas/BadRequest'
     put:
       tags:
-        - Expenditures
+        - Expenditure
       summary: Update/Create expenditure
       description: Update bill if id provided, create them otherwise
       requestBody:

@@ -32,5 +32,5 @@ public class Item implements Serializable {
   private String name;
 
   @Column(nullable = false)
-  private double unitPrice;
+  private Double unitPrice;
 }

@@ -7,7 +7,6 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import javax.transaction.Transactional;
 import java.util.List;
 
 @Service
@@ -19,13 +18,20 @@ public class ClientService {
     return clientRepository.findById(id).get();
   }
 
+  public Client getClientByName (String name){
+    return clientRepository.getClientByName(name);
+  }
+  public Client findByName (String name){
+    return clientRepository.findByName(name);
+  }
+
   public List<Client> getAll (
       int page, int page_size
   ){
     Pageable pageable = PageRequest.of(page, page_size);
     return clientRepository.findAll(pageable).toList();
   }
-  @Transactional
+
   public List<Client> saveClient (List<Client> clients){
     return clientRepository.saveAll(clients);
   }

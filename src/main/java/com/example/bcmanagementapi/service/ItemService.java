@@ -19,6 +19,10 @@ public class ItemService {
     return itemRepository.findById(id).get();
   }
 
+  public Item getByName (String name){
+    return itemRepository.findByName(name);
+  }
+
   public List<Item> getAll (int page, int page_size){
     Pageable pageable = PageRequest.of(page, page_size);
     return itemRepository.findAll(pageable).toList();

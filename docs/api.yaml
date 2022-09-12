@@ -222,7 +222,7 @@ paths:
       summary: Get balance of company's fund
       parameters:
         - name: day
-          description: Date on which the expenditure was made, by default it'll be the current date
+          description: Date to see the balance
           in: query
           schema:
             type: string
@@ -236,6 +236,12 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Balance'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BadRequest'
   /items/{id}:
     get:
       tags:
@@ -547,7 +553,19 @@ components:
           type: string
           format: date
           example: "2022-01-01"
-        montant:
+        gain:
+          type: number
+          example: 2,000,000
+        expenditure: 
+          type: number
+          example: 1,000,000
+        benefits: 
+          type: number
+          example: 1,000,000
+        lose: 
+          type: number
+          example: 0
+        totalRest: 
           type: number
           example: 2,000,000
     Client:

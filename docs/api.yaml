@@ -546,9 +546,6 @@ components:
     Balance:
       type: object
       properties:
-        id:
-          type: number
-          example: 4
         date:
           type: string
           format: date

@@ -1,5 +1,6 @@
 package com.example.bcmanagementapi.controller;
 
+import com.example.bcmanagementapi.model.Balance;
 import com.example.bcmanagementapi.service.BalanceService;
 import lombok.AllArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -16,7 +17,7 @@ public class BalanceController {
   private BalanceService balanceService;
 
   @GetMapping("/balance")
-  public Double getBalance (@RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date){
+  public Balance getBalance (@RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date){
     return balanceService.getBalance(date);
   }
 }

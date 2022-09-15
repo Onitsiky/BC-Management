@@ -5,6 +5,7 @@ import com.example.bcmanagementapi.repository.ItemRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -24,7 +25,7 @@ public class ItemService {
   }
 
   public List<Item> getAll (int page, int page_size){
-    Pageable pageable = PageRequest.of(page, page_size);
+    Pageable pageable = PageRequest.of(page, page_size, Sort.by(Sort.Direction.ASC,"id"));
     return itemRepository.findAll(pageable).toList();
   }
 

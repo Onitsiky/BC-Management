@@ -5,6 +5,7 @@ import com.example.bcmanagementapi.repository.ClientRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -28,7 +29,7 @@ public class ClientService {
   public List<Client> getAll (
       int page, int page_size
   ){
-    Pageable pageable = PageRequest.of(page, page_size);
+    Pageable pageable = PageRequest.of(page, page_size, Sort.by(Sort.Direction.ASC,"id"));
     return clientRepository.findAll(pageable).toList();
   }
 

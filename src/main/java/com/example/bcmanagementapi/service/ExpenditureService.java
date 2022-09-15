@@ -7,6 +7,7 @@ import com.example.bcmanagementapi.repository.ExpenditureRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -22,7 +23,7 @@ public class ExpenditureService {
   }
 
   public List<Expenditure> getAll (int page, int page_size){
-    Pageable pageable = PageRequest.of(page, page_size);
+    Pageable pageable = PageRequest.of(page, page_size, Sort.by(Sort.Direction.ASC,"id"));
     return expenditureRepository.findAll(pageable).toList();
   }
 

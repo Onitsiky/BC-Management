@@ -23,6 +23,11 @@ public class BillController {
   private BillMapper mapper;
   private BillService billService;
 
+  @GetMapping("/ping")
+  public String checkHealth(){
+    return "Pong";
+  }
+
   @GetMapping("/bills/{id}")
   public Bill getBillById (@PathVariable Long id){
     return mapper.toRest(billService.getBillById(id));

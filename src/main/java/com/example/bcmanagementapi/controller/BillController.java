@@ -4,6 +4,7 @@ import com.example.bcmanagementapi.model.mapper.BillMapper;
 import com.example.bcmanagementapi.model.rest.Bill;
 import com.example.bcmanagementapi.service.BillService;
 import lombok.AllArgsConstructor;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -16,6 +17,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @RestController
+@CrossOrigin
 @AllArgsConstructor
 public class BillController {
   private BillMapper mapper;

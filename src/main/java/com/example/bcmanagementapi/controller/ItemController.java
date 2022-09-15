@@ -3,6 +3,8 @@ package com.example.bcmanagementapi.controller;
 import com.example.bcmanagementapi.model.Item;
 import com.example.bcmanagementapi.service.ItemService;
 import lombok.AllArgsConstructor;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -14,6 +16,7 @@ import java.util.List;
 
 @RestController
 @AllArgsConstructor
+@CrossOrigin
 public class ItemController {
   private final ItemService itemService;
 

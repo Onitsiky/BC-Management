@@ -3,6 +3,7 @@ package com.example.bcmanagementapi.controller;
 import com.example.bcmanagementapi.model.Expenditure;
 import com.example.bcmanagementapi.service.ExpenditureService;
 import lombok.AllArgsConstructor;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -14,6 +15,7 @@ import java.util.List;
 
 @RestController
 @AllArgsConstructor
+@CrossOrigin
 public class ExpenditureController {
   private ExpenditureService expenditureService;
 

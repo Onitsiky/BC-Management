@@ -34,9 +34,10 @@ public class Expenditure implements Serializable {
   private Long id;
 
 
+  @Column(nullable = false)
   private String description;
 
-  @Column(nullable = false, columnDefinition = "DATE DEFAULT CURRENT_DATE")
+  @Column(columnDefinition = "DATE DEFAULT CURRENT_DATE")
   private LocalDate date;
 
   @ManyToOne

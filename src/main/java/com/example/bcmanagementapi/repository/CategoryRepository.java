@@ -1,10 +1,9 @@
 package com.example.bcmanagementapi.repository;
 
-import com.example.bcmanagementapi.model.Item;
+import com.example.bcmanagementapi.model.Category;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface ItemRepository extends JpaRepository<Item, Long> {
-  Item findByName(String name);
+public interface CategoryRepository extends JpaRepository<Category, Long> {
 }

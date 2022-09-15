@@ -1,30 +1,35 @@
-package com.example.bcmanagementapi.Model;
+package com.example.bcmanagementapi.model;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
-import javax.persistence.*;
-import java.io.Serializable;
-import java.util.List;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
 @Entity
+@Table(name = "\"client\"")
 @Data
-@EqualsAndHashCode
+@Builder
+@ToString
 @AllArgsConstructor
 @NoArgsConstructor
-public class Client implements Serializable {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+@EqualsAndHashCode
+public class Client {
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private Long id;
 
-    @Column(nullable = false, unique = true)
-    private String name;
+  @Column(nullable = false, unique = true)
+  private String name;
 
-    @Column(nullable = false)
-    private String contact;
-
-    @OneToMany(mappedBy = "client")
-    private List<Bill> bills;
+  @Column(nullable = false)
+  private String contact;
 }
